@@ -1,0 +1,59 @@
+#include<iostream>
+using namespace std;
+class Node{
+public:
+    int data;
+    Node * next;
+    Node(int val){
+        data=val;
+        next=NULL;
+    }
+};
+void AppendNode(Node * &head,int val){
+    Node * n=new Node(val);
+    if(head==NULL){
+        head=n;
+        return ;
+    }
+    else{
+        Node * temp=head;
+        while (temp->next!=NULL)
+        {
+            temp=temp->next; // traverse through the last node
+        }
+        temp->next=n; // finally at the last we are appending the node
+        
+    }
+}
+
+Node * RecursiveReverse(Node * &head){
+    if(head==NULL || head->next==NULL){
+        return head;
+    }
+    Node * Newhead=RecursiveReverse(head->next);
+    head->next->next=head;
+    head->next=NULL;
+    return Newhead;
+}
+void Display(Node * head){
+    Node * temp=head;
+    while(temp!=NULL){
+        cout<<"("<<temp->data<<")-->";
+        temp=temp->next;
+    }
+    cout<<"NULL";
+}
+int main(){
+Node * head=NULL; // abhi hamari linked list khali hai
+AppendNode(head,10);
+AppendNode(head,20);
+AppendNode(head,30);
+AppendNode(head,40);
+AppendNode(head,50);
+Display(head);
+cout<<endl;
+Node * revNode=RecursiveReverse(head);
+cout<<"Printing Reversed Node: "<<endl;
+Display(revNode);
+return 0;
+}
